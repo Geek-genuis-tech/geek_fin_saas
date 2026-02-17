@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// 1. Role (Enum)
+enum Role {
+  ADMIN
+  MANAGER
+  USER
+}
+
+// 2. User (Utilisateur du système)
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Mot de passe hashé
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  operations Operation[] // Relation: Un user fait plusieurs opérations
+}
+
+// 3. Client
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  createdAt DateTime @default(now())
+
+  invoices  Invoice[] // Relation: Un client a plusieurs factures
+}
+
+// 4. Employee
+model Employee {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  position  String
+  salary    Float
+  hiredAt   DateTime @default(now())
+}
+
+// 5. Operation (ex: journal d'activité)
+model Operation {
+  id          String   @id @default(cuid())
+  description String
+  amount      Float?
+  date        DateTime @default(now())
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+// 6. Budget
+model Budget {
+  id          String   @id @default(cuid())
+  category    String
+  amountLimit Float
+  period      String   // ex: "2023-Q1" ou "October 2023"
+}
+
+// 7. Invoice (Facture)
+model Invoice {
+  id          String   @id @default(cuid())
+  amount      Float
+  status      String   // ex: PENDING, PAID, CANCELLED
+  dueDate     DateTime
+  createdAt   DateTime @default(now())
+
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id])
+}
+
+// 8. CashRegister (Caisse)
+model CashRegister {
+  id        String   @id @default(cuid())
+  name      String   // ex: "Caisse Principale"
+  balance   Float    @default(0.0)
+}
+
+// 9. CashTransaction (Mouvement de caisse)
+model CashTransaction {
+  id        String   @id @default(cuid())
+  amount    Float
+  type      String   // ex: IN, OUT
+  reason    String
+  date      DateTime @default(now())
+}
+
