@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "geek-fin-backend/ ├── src/ │   ├── config/                 # Config globale (env, db, etc.) │   │   ├── db.ts │   │   └── env.ts │ │   ├── modules/                # Architecture par domaine métier │   │   ├── auth/ │   │   │   ├── auth.controller.ts │   │   │   ├── auth.service.ts │   │   │   ├── auth.routes.ts │   │   │   └── auth.model.ts │   │   │ │   │   ├── users/ │   │   ├── budget/ │   │   ├── caisse/ │   │   ├── facturation/ │   │   ├── operations/ │   │   ├── analyse/ │   │   └── rh/ │ │   ├── middlewares/            # Middlewares globaux │   │   ├── auth.middleware.ts │   │   ├── error.middleware.ts │   │   └── validate.middleware.ts │ │   ├── utils/                  # Fonctions utilitaires │   │   ├── logger.ts │   │   └── helpers.ts │ │   ├── types/                  # Types globaux TS │   │   └── index.ts │ │   ├── routes.ts               # Regroupement de toutes les routes │   ├── app.ts                  # Config Express │   └── server.ts               # Point d’entrée │ ├── prisma/ OR database/        # ORM (Prisma recommandé) │   └── schema.prisma │ ├── .env ├── package.json └── tsconfig.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.20.0",
+    "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.6"
+  }
+}
