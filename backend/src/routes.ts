@@ -2,6 +2,7 @@
 
 import { Router , Request, Response } from "express";
 import userRoutes from "./modules/users/user.routes";
+import authRoutes from "./modules/auth/auth.routes";
 
 
 // Importation des routes modules !
@@ -11,7 +12,10 @@ import userRoutes from "./modules/users/user.routes";
 // import budgetRoutes from "./modules/budget/budget.routes";
 
 const router = Router();
+
+
 router.use("/users", userRoutes);
+router.use("/auth", authRoutes);
 
 // Définition des routes
 // router.use("/auth", authRoutes);
